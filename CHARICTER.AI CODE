@@ -1,0 +1,50 @@
+import pygame
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the screen
+screen_width = 800  # width of the screen in pixels
+screen_height = 600  # height of the screen in pixels
+screen = pygame.display.set_mode((screen_width, screen_height))
+
+# Set up the clock
+clock = pygame.time.Clock()
+
+# Define a variable to keep track of the score
+score = 0
+
+# Define a variable to control the speed of the falling objects
+speed = 1  # the higher the number, the faster the objects will fall
+
+# This function is called when the game starts
+def game_loop():
+    # Check if the user has closed the window
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+
+    # Check if the user has tapped the screen
+    if pygame.mouse.get_pressed()[0]:
+        score += 1
+
+    # Check if the score is greater than or equal to 100
+    if score >= 100:
+        score = 0
+
+    # Check if the score is less than 0
+    if score < 0:
+        score = 0
+
+    # Clear the screen
+    screen.fill((255, 255, 255))
+
+    # Draw the falling objects to the screen
+    for y in range(screen_height // 3, -25, -10):
+        pygame.draw.rect(screen, (255, 0, 0), (0, y, screen_width, 50))
+
+    # Draw the score on the screen
+    font = pygame.font.Font(None, 48)
+    score_text = font.render(str(score), 1, (0, 255, 0))
+    screen.blit(score_text, (screen_width // 2 - score_text.
